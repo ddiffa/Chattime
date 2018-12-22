@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Chattime</string>
+    <string name="hint_login">Email</string>
+    <string name="pasword_hint">Password</string>
+    <string name="display_name">Display Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
