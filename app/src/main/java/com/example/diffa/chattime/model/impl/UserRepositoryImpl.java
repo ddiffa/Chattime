@@ -3,11 +3,9 @@ package com.example.diffa.chattime.model.impl;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.example.diffa.chattime.model.User;
 import com.example.diffa.chattime.model.repository.UserRepository;
-import com.example.diffa.chattime.ui.chatroom.MainContract;
 import com.example.diffa.chattime.utils.Action;
 import com.example.diffa.chattime.utils.AvatarUtil;
 import com.google.gson.Gson;
@@ -15,10 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import com.qiscus.sdk.Qiscus;
 import com.qiscus.sdk.chat.core.data.model.QiscusAccount;
 
-import java.io.IOException;
 import java.util.List;
 
-import retrofit2.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -48,32 +44,19 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void openChat(User user, MainContract.View view) {
+    public void openChat(User user, Action<User> onSuccess, Action<Throwable> onError) {
         Qiscus.buildChatWith(user.getId())
                 .withTitle(user.getName())
                 .build(context, new Qiscus.ChatActivityBuilderListener() {
                     @Override
                     public void onSuccess(Intent intent) {
-                        view.onSuccess(user);
+                        onSuccess.call(user);
                         context.startActivity(intent);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        if (throwable instanceof HttpException) {
-                            HttpException e = (HttpException) throwable;
-                            try {
-                                String errorMessage = e.response().errorBody().string();
-                                view.onError(errorMessage);
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
-                        } else if (throwable instanceof IOException) {
-                            view.onError("Can not connect to qiscus server!");
-                        } else { //Unknown error
-                            view.onError("Unexpected error!");
-                        }
-                        throwable.printStackTrace();
+                        onError.call(throwable);
                     }
                 });
     }
@@ -87,7 +70,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getUser() {
-        String json = sharedPreferences.getString("contacts","");
+        String json = sharedPreferences.getString("contacts", "");
         return gson.fromJson(json, new TypeToken<List<User>>() {
         }.getType());
     }

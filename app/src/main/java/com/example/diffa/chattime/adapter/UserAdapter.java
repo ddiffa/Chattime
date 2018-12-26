@@ -58,7 +58,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.Holder> {
 
         public Holder(@NonNull View itemView, OnClickListener listener) {
             super(itemView);
-            displayName = itemView.findViewById(R.id.dispayName);
+            displayName = itemView.findViewById(R.id.chatUsername);
             this.listener = listener;
             itemView.setOnClickListener(this);
         }

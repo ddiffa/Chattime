@@ -18,7 +18,13 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void openChat(User user) {
 
-        userRepository.openChat(user, view);
+        userRepository.openChat(user,
+                user1 -> {
+                    view.onSuccess(user);
+                },
+                throwable -> {
+                    view.onError(throwable.getMessage().toString());
+                });
 
     }
 

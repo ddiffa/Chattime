@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:onClick="createNewChat"
-        android:src="@drawable/ic_action_create"
+        android:src="@drawable/ic_add_white_24dp"
         app:fabSize="normal" />
 
 </RelativeLayout>
