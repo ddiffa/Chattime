@@ -51,6 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
                     @Override
                     public void onSuccess(Intent intent) {
                         onSuccess.call(user);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
 
