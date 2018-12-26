@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="leftBubble">#D0D0D0</color>
     <color name="accountLinkingBackground">#DFDFDF</color>
+    <color name="colorGray">#9c9c9c</color>
 </resources>

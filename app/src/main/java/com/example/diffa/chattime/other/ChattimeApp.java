@@ -5,6 +5,7 @@ import android.os.Build;
 
 import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.utils.Constant;
+import com.qiscus.nirmana.Nirmana;
 import com.qiscus.sdk.Qiscus;
 
 public class ChattimeApp extends Application {
@@ -19,6 +20,7 @@ public class ChattimeApp extends Application {
         super.onCreate();
         INSTANCE = this;
         compat = new AppComponent(this);
+        Nirmana.init(this);
 
         Qiscus.init(this,Constant.APP_ID);
 

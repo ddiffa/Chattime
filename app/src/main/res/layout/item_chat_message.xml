@@ -4,16 +4,48 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/chatUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:padding="16dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/chatImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="8dp"
+            android:src="@drawable/qiscus_circle_divider" />
+
+        <TextView
+            android:id="@+id/chatUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toRightOf="@+id/chatImage"
+            android:text="Username"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chatUnread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/qiscus_red"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/chatReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chatUsername"
+            android:layout_toRightOf="@+id/chatImage"
+            android:maxLines="3"
+            android:text="Review" />
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorPrimary"/>
+        android:layout_height="1dp"
+        android:background="@color/colorGray" />
 </LinearLayout>

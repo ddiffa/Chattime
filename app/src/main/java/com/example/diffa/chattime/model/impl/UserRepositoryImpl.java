@@ -11,6 +11,7 @@ import com.example.diffa.chattime.utils.AvatarUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.qiscus.sdk.Qiscus;
+import com.qiscus.sdk.chat.core.QiscusCore;
 import com.qiscus.sdk.chat.core.data.model.QiscusAccount;
 
 import java.util.List;
@@ -44,15 +45,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void openChat(User user, Action<User> onSuccess, Action<Throwable> onError) {
+    public void openChat(User user, Action<Intent> onSuccess, Action<Throwable> onError) {
         Qiscus.buildChatWith(user.getId())
                 .withTitle(user.getName())
                 .build(context, new Qiscus.ChatActivityBuilderListener() {
                     @Override
                     public void onSuccess(Intent intent) {
-                        onSuccess.call(user);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        onSuccess.call(intent);
                     }
 
                     @Override
