@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Group Chat"
+                        android:text="Chat Group"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/qiscus_white" />
                 </LinearLayout>
