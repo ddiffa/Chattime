@@ -1,10 +1,9 @@
 # Chattime
-Implementation Qiscus SDK
-<img src="https://drive.google.com/file/d/1l2-AMHVHf3JuiecGGWr1e4nLiQIfHftx/view?usp=sharing"
+<img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-38-39-772_com.example.diffa.chattime.png"
 width="256">&nbsp;&nbsp;&nbsp;
-<img src="https://drive.google.com/file/d/1SHIItoIJcMtXqrxsPpp6bnKW5GNA1eQO/view?usp=sharing"
+<img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-38-51-380_com.example.diffa.chattime.png"
 width="256">&nbsp;&nbsp;&nbsp;
-<img src="https://drive.google.com/file/d/1Nlz2_h9FPe20fWjlO5vxEAMqp_q2SXY8/view?usp=sharing"
+<img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-38-59-546_com.example.diffa.chattime.png"
 width="256">&nbsp;&nbsp;&nbsp;
 # Introduction
 
