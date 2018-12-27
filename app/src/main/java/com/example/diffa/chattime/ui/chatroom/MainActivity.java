@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.example.diffa.chattime.adapter.ChatRoomAdapter;
 import com.example.diffa.chattime.adapter.OnItemClickListener;
 import com.example.diffa.chattime.model.User;
 import com.example.diffa.chattime.other.ChattimeApp;
+import com.example.diffa.chattime.ui.contact.ContactActivity;
 import com.example.diffa.chattime.ui.login.LoginActivity;
 import com.example.diffa.chattime.ui.newchat.NewChatDialog;
 import com.example.diffa.chattime.utils.AvatarUtil;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.rvChat);
         presenter = new MainPresenter(this, ChattimeApp.getInstance().getCompat().getUserRepository()
                 , ChattimeApp.getInstance().getCompat().getChatRoomRepository());
@@ -100,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         }
                     })
                     .show();
+        }
+        if (item.getItemId() == R.id.contact) {
+            startActivity(new Intent(this, ContactActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,12 +1,14 @@
 package com.example.diffa.chattime.model;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Objects;
 
 
-public class User implements Parcelable {
+public class User implements Parcelable, Comparable<User> {
     private String id;
     private String name;
     private String avatarUrl;
@@ -44,6 +46,7 @@ public class User implements Parcelable {
         this.avatarUrl = avatarUrl;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,6 +57,7 @@ public class User implements Parcelable {
                 Objects.equals(avatarUrl, user.avatarUrl);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public int hashCode() {
 
@@ -98,4 +102,9 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    @Override
+    public int compareTo(@NonNull User o) {
+        return name.compareTo(o.name);
+    }
 }

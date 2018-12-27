@@ -11,18 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.example.diffa.chattime.R;
+import com.example.diffa.chattime.utils.DateUtil;
 import com.qiscus.nirmana.Nirmana;
 import com.qiscus.sdk.chat.core.data.model.QiscusChatRoom;
 import com.qiscus.sdk.chat.core.data.model.QiscusComment;
 
 import java.util.List;
 
-/**
- * Created on : January 31, 2018
- * Author     : zetbaitsu
- * Name       : Zetra
- * GitHub     : https://github.com/zetbaitsu
- */
+
 public class ChatRoomAdapter extends SortedRecyclerViewAdapter<QiscusChatRoom, ChatRoomAdapter.VH> {
 
     private Context context;
@@ -74,6 +70,7 @@ public class ChatRoomAdapter extends SortedRecyclerViewAdapter<QiscusChatRoom, C
         private TextView name;
         private TextView lastMessage;
         private TextView unread;
+        private  TextView time;
         private OnItemClickListener onItemClickListener;
 
         VH(View itemView, OnItemClickListener onItemClickListener) {
@@ -82,6 +79,7 @@ public class ChatRoomAdapter extends SortedRecyclerViewAdapter<QiscusChatRoom, C
             name = itemView.findViewById(R.id.chatUsername);
             lastMessage = itemView.findViewById(R.id.chatReview);
             unread = itemView.findViewById(R.id.chatUnread);
+            time = itemView.findViewById(R.id.chatTime);
             this.onItemClickListener = onItemClickListener;
 
             itemView.setOnClickListener(this);
@@ -97,6 +95,7 @@ public class ChatRoomAdapter extends SortedRecyclerViewAdapter<QiscusChatRoom, C
                             .dontAnimate())
                     .load(chatRoom.getAvatarUrl())
                     .into(avatar);
+            time.setText(DateUtil.toTimeDate(chatRoom.getLastComment().getTime()));
             name.setText(chatRoom.getName());
             if (chatRoom.getLastComment() != null) {
                 QiscusComment lastComment = chatRoom.getLastComment();

@@ -3,19 +3,28 @@ package com.example.diffa.chattime.model.impl;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
+import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.model.User;
 import com.example.diffa.chattime.model.repository.UserRepository;
 import com.example.diffa.chattime.utils.Action;
 import com.example.diffa.chattime.utils.AvatarUtil;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.qiscus.sdk.Qiscus;
-import com.qiscus.sdk.chat.core.QiscusCore;
 import com.qiscus.sdk.chat.core.data.model.QiscusAccount;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import rx.Emitter;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -28,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
     public UserRepositoryImpl(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("rooms", Context.MODE_PRIVATE);
-        gson = new Gson();
+        gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     }
 
 
@@ -39,6 +48,18 @@ public class UserRepositoryImpl implements UserRepository {
                 .withAvatarUrl(AvatarUtil.generateAvatar(displayName))
                 .save()
                 .map(this::mapFromQiscusAccount)
+                .doOnNext(this::setCurrentUser)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onSuccess::call, onError::call);
+    }
+
+    @Override
+    public void getUser(Action<List<User>> onSuccess, Action<Throwable> onError) {
+        getUsersObservable()
+                .flatMap(Observable::from)
+                .filter(user -> !user.equals(getCurrentUser()))
+                .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onSuccess::call, onError::call);
@@ -68,12 +89,12 @@ public class UserRepositoryImpl implements UserRepository {
                 .apply();
     }
 
-    @Override
-    public List<User> getUser() {
-        String json = sharedPreferences.getString("contacts", "");
-        return gson.fromJson(json, new TypeToken<List<User>>() {
-        }.getType());
-    }
+//    @Override
+//    public List<User> getUser() {
+//        String json = sharedPreferences.getString("contacts", "");
+//        return gson.fromJson(json, new TypeToken<List<User>>() {
+//        }.getType());
+//    }
 
     @Override
     public void logout() {
@@ -87,5 +108,38 @@ public class UserRepositoryImpl implements UserRepository {
         user.setName(qiscusAccount.getUsername());
         user.setAvatarUrl(qiscusAccount.getAvatar());
         return user;
+    }
+
+    private Observable<List<User>> getUsersObservable() {
+        return Observable.create(subscriber -> {
+            try {
+                List<User> users = gson.fromJson(getUsersData(), new TypeToken<List<User>>() {
+                }.getType());
+                subscriber.onNext(users);
+            } catch (Exception e) {
+                subscriber.onError(e);
+            } finally {
+                subscriber.onCompleted();
+            }
+        }, Emitter.BackpressureMode.BUFFER);
+    }
+
+    private String getUsersData() throws IOException, JSONException {
+        Resources resources = context.getResources();
+        InputStream inputStream = resources.openRawResource(R.raw.users);
+
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes);
+        return new String(bytes);
+    }
+
+    private User getCurrentUser() {
+        return gson.fromJson(sharedPreferences.getString("current_user", ""), User.class);
+    }
+
+    private void setCurrentUser(User user) {
+        sharedPreferences.edit()
+                .putString("current_user", gson.toJson(user))
+                .apply();
     }
 }

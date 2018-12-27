@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryLight">#04b9a6</color>
     <color name="colorAccent">#D81B60</color>
     <color name="leftBubble">#D0D0D0</color>
     <color name="accountLinkingBackground">#DFDFDF</color>
