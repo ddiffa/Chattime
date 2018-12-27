@@ -1,9 +1,8 @@
-package com.example.diffa.chattime.other;
+package com.example.diffa.chattime;
 
 import android.app.Application;
 import android.os.Build;
 
-import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.utils.Constant;
 import com.qiscus.nirmana.Nirmana;
 import com.qiscus.sdk.Qiscus;

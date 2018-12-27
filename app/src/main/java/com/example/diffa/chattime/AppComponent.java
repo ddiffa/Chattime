@@ -1,4 +1,4 @@
-package com.example.diffa.chattime.other;
+package com.example.diffa.chattime;
 
 import android.content.Context;
 

@@ -3,6 +3,7 @@ package com.example.diffa.chattime.ui.chatroom;
 import com.example.diffa.chattime.model.User;
 import com.example.diffa.chattime.model.repository.ChatRoomRepository;
 import com.example.diffa.chattime.model.repository.UserRepository;
+import com.qiscus.sdk.chat.core.data.model.QiscusChatRoom;
 
 
 import java.util.Collections;
@@ -20,25 +21,12 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void createChat(User user) {
-        chatRoomRepository.createChatRoom(user,
-                chatRoom -> {
-                    view.showChatRooms(Collections.singletonList(chatRoom));
-                },
-                throwable -> {
-                    view.showErrorMEssage(throwable.getMessage().toString());
-                });
-
-        userRepository.openChat(user,
-                intent -> view.showChatRoomPage(intent),
-                throwable -> view.showErrorMEssage(throwable.getMessage()));
-    }
-
-    @Override
-    public void openChat(User user) {
-        userRepository.openChat(user,
-                user1 -> view.showChatRoomPage(user1),
-                throwable -> view.showErrorMEssage(throwable.getMessage()));
+    public void openChat(QiscusChatRoom chatRoom) {
+        if (chatRoom.isGroup()){
+            view.showChatRoomPageGroup(chatRoom);
+        return;
+        }
+        view.showChatRoomPage(chatRoom);
     }
 
     @Override
@@ -49,7 +37,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void loadChatRooms() {
         chatRoomRepository.getChatRooms(chatRooms -> view.showChatRooms(chatRooms),
-                throwable -> view.showErrorMEssage(throwable.getMessage()));
+                throwable -> view.showErrorMessage(throwable.getMessage()));
     }
 
 

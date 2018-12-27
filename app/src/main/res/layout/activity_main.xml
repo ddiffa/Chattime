@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Home"
+                        android:text="ChatTime"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/qiscus_white" />
 
@@ -57,16 +57,5 @@
         android:id="@+id/rvChat"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:onClick="createNewChat"
-        android:src="@drawable/ic_add_white_24dp"
-        app:fabSize="normal" />
 
 </RelativeLayout>

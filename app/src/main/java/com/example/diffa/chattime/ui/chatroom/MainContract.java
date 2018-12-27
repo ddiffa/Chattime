@@ -12,14 +12,13 @@ public class MainContract {
     public interface View {
         void showChatRooms(List<QiscusChatRoom> chatRooms);
 
-        void showChatRoomPage(Intent intent);
-
-        void showErrorMEssage(String errorMessage);
+        void showChatRoomPage(QiscusChatRoom qiscusChatRoom);
+        void showChatRoomPageGroup(QiscusChatRoom qiscusChatRoom);
+        void showErrorMessage(String errorMessage);
     }
 
     interface Presenter {
-        void openChat(User user);
-        void createChat(User user);
+        void openChat(QiscusChatRoom chatRoom);
         void logout();
         void loadChatRooms();
     }

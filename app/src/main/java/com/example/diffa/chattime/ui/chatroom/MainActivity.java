@@ -11,20 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.adapter.ChatRoomAdapter;
 import com.example.diffa.chattime.adapter.OnItemClickListener;
-import com.example.diffa.chattime.model.User;
-import com.example.diffa.chattime.other.ChattimeApp;
+import com.example.diffa.chattime.ChattimeApp;
 import com.example.diffa.chattime.ui.contact.ContactActivity;
+import com.example.diffa.chattime.ui.groupchat.ChatGroupActivity;
 import com.example.diffa.chattime.ui.login.LoginActivity;
-import com.example.diffa.chattime.ui.newchat.NewChatDialog;
-import com.example.diffa.chattime.utils.AvatarUtil;
 import com.qiscus.sdk.chat.core.data.model.QiscusChatRoom;
 import com.qiscus.sdk.chat.core.event.QiscusCommentReceivedEvent;
+import com.qiscus.sdk.ui.QiscusChannelActivity;
+import com.qiscus.sdk.ui.QiscusChatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,13 +32,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View, OnItemClickListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     private RecyclerView recyclerView;
     private MainContract.Presenter presenter;
     private ChatRoomAdapter chatRoomAdapter;
-    private List<QiscusChatRoom> chatRoom;
-    private User user = new User();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,44 +104,34 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (item.getItemId() == R.id.contact) {
             startActivity(new Intent(this, ContactActivity.class));
         }
+        if (item.getItemId() == R.id.chatGroup){
+            startActivity(new Intent(this,ChatGroupActivity.class));
+        }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void createNewChat(View view) {
-        NewChatDialog.newInstance(new NewChatDialog.Listener() {
-            @Override
-            public void onSubmit(String name, String email) {
-                presenter.createChat(new User(email, name, AvatarUtil.generateAvatar(name)));
-            }
-        }).show(getSupportFragmentManager(), TAG);
     }
 
     @Override
     public void onItemClick(int position) {
-        user.setName(chatRoom.get(position).getName());
-        for (int i = 0; i < chatRoom.get(position).getMember().size(); i++) {
-            if (chatRoom.get(position).getMember().get(i).getUsername().equals(chatRoom.get(position).getName())) {
-                user.setId(chatRoom.get(position).getMember().get(i).getEmail());
-            }
-        }
-        user.setAvatarUrl(chatRoom.get(position).getAvatarUrl());
-        presenter.openChat(user);
+        presenter.openChat(chatRoomAdapter.getData().get(position));
     }
 
     @Override
     public void showChatRooms(List<QiscusChatRoom> chatRooms) {
-        chatRoom = chatRooms;
         chatRoomAdapter.addOrUpdate(chatRooms);
     }
 
     @Override
-    public void showChatRoomPage(Intent intent) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    public void showChatRoomPage(QiscusChatRoom chatRoom) {
+        startActivity(QiscusChatActivity.generateIntent(this, chatRoom));
     }
 
     @Override
-    public void showErrorMEssage(String errorMessage) {
+    public void showChatRoomPageGroup(QiscusChatRoom qiscusChatRoom) {
+        startActivity(QiscusChannelActivity.generateIntent(this, qiscusChatRoom));
+    }
+
+    @Override
+    public void showErrorMessage(String errorMessage) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

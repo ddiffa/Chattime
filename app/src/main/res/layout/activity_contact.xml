@@ -38,10 +38,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/contact_tv_title"
+                        android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contact"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Your Contact"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/qiscus_white" />
                 </LinearLayout>
             </LinearLayout>

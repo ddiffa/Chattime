@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.diffa.chattime.other.ChattimeApp;
+import com.example.diffa.chattime.ChattimeApp;
 import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.ui.chatroom.MainActivity;
 import com.qiscus.sdk.Qiscus;

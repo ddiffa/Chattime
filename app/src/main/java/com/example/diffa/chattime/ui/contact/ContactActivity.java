@@ -6,14 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.adapter.ContactAdapter;
 import com.example.diffa.chattime.adapter.OnItemClickListener;
 import com.example.diffa.chattime.model.User;
-import com.example.diffa.chattime.other.ChattimeApp;
+import com.example.diffa.chattime.ChattimeApp;
 import com.qiscus.sdk.chat.core.data.model.QiscusChatRoom;
 
 import java.util.List;

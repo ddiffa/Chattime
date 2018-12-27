@@ -3,7 +3,7 @@
     package="com.example.diffa.chattime">
 
     <application
-        android:name=".other.ChattimeApp"
+        android:name=".ChattimeApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,11 +18,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.chatroom.MainActivity" />
-        <activity android:name=".ui.ChatRoomActivity" />
         <activity
             android:name=".ui.contact.ContactActivity"
             android:noHistory="true" />
-        <activity android:name=".ui.groupchat.ChatGroupActivity"></activity>
+        <activity android:name=".ui.groupchat.ChatGroupActivity" />
+        <activity android:name=".ui.groupchat.create.CreateGroupChatActivity"></activity>
     </application>
 
 </manifest>
