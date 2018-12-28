@@ -1,5 +1,6 @@
 package com.example.diffa.chattime.ui.chatroom;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +14,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.diffa.chattime.ChattimeApp;
 import com.example.diffa.chattime.R;
 import com.example.diffa.chattime.adapter.ChatRoomAdapter;
 import com.example.diffa.chattime.adapter.OnItemClickListener;
-import com.example.diffa.chattime.ChattimeApp;
 import com.example.diffa.chattime.ui.contact.ContactActivity;
 import com.example.diffa.chattime.ui.groupchat.ChatGroupActivity;
 import com.example.diffa.chattime.ui.login.LoginActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private ChatRoomAdapter chatRoomAdapter;
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (item.getItemId() == R.id.contact) {
             startActivity(new Intent(this, ContactActivity.class));
         }
-        if (item.getItemId() == R.id.chatGroup){
-            startActivity(new Intent(this,ChatGroupActivity.class));
+        if (item.getItemId() == R.id.chatGroup) {
+            startActivity(new Intent(this, ChatGroupActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
