@@ -1,6 +1,4 @@
 # Chattime
-<img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-38-39-772_com.example.diffa.chattime.png"
-width="256">&nbsp;&nbsp;&nbsp;
 <img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-50-21-210_com.example.diffa.chattime.png"
 width="256">&nbsp;&nbsp;&nbsp;
 <img src="https://github.com/ddiffa/Chattime/blob/master/Screenshot_2018-12-27-16-50-36-398_com.example.diffa.chattime.png"
